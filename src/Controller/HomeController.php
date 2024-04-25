@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class HomeController extends AbstractController
 {
 
-    #[Route('/home', name: 'app_home_index')]
+    #[Route('/', name: 'app_home_index')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Récupérer les messages depuis la base de données
