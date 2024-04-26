@@ -42,8 +42,8 @@ RUN chown -R www-data: ./
 
 USER www-data
 
-ENV APP_ENV prod
-ENV APP_DEBUG 0
+ENV APP_ENV dev
+ENV APP_DEBUG 1
 RUN composer install --no-interaction --no-scripts
 
 
