@@ -46,7 +46,4 @@ ENV APP_ENV prod
 ENV APP_DEBUG 0
 RUN composer install --no-interaction --no-scripts
 
-ENV CYPRESS_CACHE_FOLDER /var/www/html/.cache
 
-RUN yarn install
-RUN yarn run build
