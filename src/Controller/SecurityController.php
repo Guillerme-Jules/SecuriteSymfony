@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use function App\Fonction\generateToken;
 
 class SecurityController extends AbstractController
 {
@@ -42,7 +41,12 @@ class SecurityController extends AbstractController
             $query = "SELECT * FROM [user] WHERE email = '" . $email . "'";
             $user = $entityManager->getConnection()->query($query)->fetch();
             // Enregistrer le nouveau message dans la base de données
-            $token = generateToken(20);
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()-_=+';
+            $token = '';
+            $max = strlen($characters) - 1;
+            for ($i = 0; $i < 20; $i++) {
+                $token .= $characters[mt_rand(0, $max)];
+            }
             if($user){
                 $userEntity = $entityManager->getRepository(User::class)->find($user['id']);
                 $userEntity->setToken($token);

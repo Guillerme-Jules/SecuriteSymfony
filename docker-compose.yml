@@ -7,9 +7,9 @@ services:
       - SA_PASSWORD=sql2022_
       - ACCEPT_EULA=Y
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-Psql2022_", "-Q", "select 1"]
-      interval: 1s
-      retries: 20
+        test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-Psql2022_", "-Q", "select 1"]
+        interval: 1s
+        retries: 20
     ports:
       - "1435:1433"
     volumes:
@@ -19,16 +19,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sh -c "cd /var/www/html && php bin/console doctrine:database:create && php bin/console d:m:m"
     ports:
       - "80:80"
     volumes:
       - .:/app/
     depends_on:
-      db:
-        condition: service_healthy
+        db:
+          condition: service_healthy
     environment:
       - DATABASE_URL=sqlsrv://sa:sql2022_@db/SecuriteSymfony
-
+    
 volumes:
   db-data:
